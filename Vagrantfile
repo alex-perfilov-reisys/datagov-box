@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
   #   vb.gui = true
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
-    vb.customize ["modifyvm", :id, "--memory", "512"]
+    vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
 
   config.vm.network :forwarded_port, guest: 80, host: 8888
@@ -39,11 +39,12 @@ Vagrant.configure("2") do |config|
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["cookbooks","my_cookbooks"]
 
+    chef.add_recipe "apt"
     # chef.add_recipe "build-essential"
     chef.add_recipe "apache2"
     chef.add_recipe "apache2::mod_rewrite"
-    chef.add_recipe "mysql::server"
     chef.add_recipe "php"
+    chef.add_recipe "mysql::server"
     chef.add_recipe "php::module_mysql"
     chef.add_recipe "php::module_apc"
     chef.add_recipe "php::module_curl"
@@ -53,7 +54,11 @@ Vagrant.configure("2") do |config|
     chef.add_recipe 'datagov-apache2'
     #chef.add_recipe 'phpmyadmin'
     chef.json = {
+      :php    => {
+        :version                => "5.3",
+      },
       :mysql  => {
+        :version                => "5.5",
         :server_root_password   => "password",
         :server_repl_password   => "password",
         :server_debian_password => "password",
