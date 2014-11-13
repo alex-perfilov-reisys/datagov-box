@@ -9,3 +9,5 @@
 
 * sudo gem install librarian-chef
 * librarian-chef install
+
+* vagrant up

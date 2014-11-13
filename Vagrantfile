@@ -10,6 +10,18 @@ Vagrant.configure("2") do |config|
   # config.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_chef-11.4.0.box"
   config.ssh.forward_agent = true
 
+  # Provider-specific configuration so you can fine-tune various
+  # backing providers for Vagrant. These expose provider-specific options.
+  # Example for VirtualBox:
+  #
+  config.vm.provider "virtualbox" do |vb|
+  #   # Don't boot with headless mode
+  #   vb.gui = true
+  #
+  #   # Use VBoxManage to customize the VM. For example to change memory:
+    vb.customize ["modifyvm", :id, "--memory", "512"]
+  end
+
   config.vm.network :forwarded_port, guest: 80, host: 8888
 
   config.omnibus.chef_version = :latest
@@ -25,12 +37,21 @@ Vagrant.configure("2") do |config|
   config.vm.network :private_network, ip: "192.168.33.10"
 
   config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = ["cookbooks"]
-    chef.add_recipe :apt
-    chef.add_recipe 'mysql::server'
+    chef.cookbooks_path = ["cookbooks","my_cookbooks"]
+
+    # chef.add_recipe "build-essential"
+    chef.add_recipe "apache2"
+    chef.add_recipe "apache2::mod_rewrite"
+    chef.add_recipe "mysql::server"
+    chef.add_recipe "php"
+    chef.add_recipe "php::module_mysql"
+    chef.add_recipe "php::module_apc"
+    chef.add_recipe "php::module_curl"
+    chef.add_recipe "apache2::mod_php5"
+    # chef.add_recipe "composer"
     chef.add_recipe 'vim'
-    chef.add_recipe 'php'
-    chef.add_recipe 'apache2'
+    chef.add_recipe 'datagov-apache2'
+    #chef.add_recipe 'phpmyadmin'
     chef.json = {
       :mysql  => {
         :server_root_password   => "password",
@@ -49,7 +70,7 @@ Vagrant.configure("2") do |config|
         :grants_path            => "/etc/mysql/grants.sql"
       },
       :apache => {
-        :default_site_enabled => "true",
+        :default_site_enabled => "false",
         :dir                  => "/etc/apache2",
         :log_dir              => "/var/log/apache2",
         :error_log            => "error.log",
