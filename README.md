@@ -10,4 +10,6 @@
 * `sudo gem install librarian-chef`
 * `librarian-chef install`
 
+* get somewhere `datagov.sql` and put it to `datagov-box` folder
+
 * `vagrant up`

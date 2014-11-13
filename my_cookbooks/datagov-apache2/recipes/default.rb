@@ -20,6 +20,7 @@ bash "disable-saml" do
 	user "vagrant"
 	cwd "/vagrant/datagov-deploy/web/"
 	code <<-EOH
+	mysql -u root -ppassword < /vagrant/datagov.sql
 	wp plugin deactivate saml-20-single-sign-on
 	wp user update admin --user_pass=password
 	EOH
