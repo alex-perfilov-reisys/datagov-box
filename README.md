@@ -2,7 +2,7 @@
 
 * ###Getting datagov project
  * `cd datagov-box`
- * `git clone https://github.com/REI-Systems/datagov-deploy.git`
+ * `git clone https://github.com/GSA/datagov-deploy.git`
  * `cd datagov-deploy`
  * create `.env` file with content:
     ```

@@ -12,3 +12,6 @@ tmp/
 datagov-deploy/
 
 *.sql
+
+# itellij editor
+.idea

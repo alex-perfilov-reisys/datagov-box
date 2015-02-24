@@ -23,6 +23,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.network :forwarded_port, guest: 80, host: 8888
+  config.vm.network :forwarded_port, guest: 22, host: 1234
 
   config.omnibus.chef_version = :latest
 
@@ -52,6 +53,7 @@ Vagrant.configure("2") do |config|
     # chef.add_recipe "composer"
     chef.add_recipe 'vim'
     chef.add_recipe 'datagov-apache2'
+    chef.add_recipe "splunk::server"
     #chef.add_recipe 'phpmyadmin'
     chef.json = {
       :php    => {
