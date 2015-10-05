@@ -54,7 +54,7 @@ Vagrant.configure("2") do |config|
     # chef.add_recipe "composer"
     chef.add_recipe 'vim'
     chef.add_recipe 'datagov-apache2'
-    chef.add_recipe "splunk::server"
+    # chef.add_recipe "splunk::server"
     #chef.add_recipe 'phpmyadmin'
     chef.json = {
       :php    => {
