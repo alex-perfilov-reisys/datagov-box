@@ -3,19 +3,10 @@
 * ###Getting datagov project
  * `cd datagov-box`
  * `git clone https://github.com/GSA/datagov-deploy.git`
- * `cd datagov-deploy`
- * create `.env` file with content:
-    ```
-    DB_NAME=datagov
-    DB_USER=root
-    DB_PASSWORD=password
-    DB_HOST=localhost
 
-    WP_ENV=local
-    WP_HOME=http://datagov.dev
-    WP_SITEURL=http://datagov.dev/wp
-    FORCE_SSL_ADMIN=false
-    ```
+* ###Get a fresh database
+ * put fresh `datagov.sql` file into `datagov-box` folder
+
 * ###Setting up virtual machine
  * install virtualbox https://www.virtualbox.org/wiki/Downloads
  * install vagrant https://www.vagrantup.com/downloads
